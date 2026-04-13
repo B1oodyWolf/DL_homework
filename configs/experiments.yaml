@@ -1,0 +1,45 @@
+seed: 42
+num_workers: 8
+device: cuda
+data:
+  archive_path: dataset/food-101.tar.gz
+  extracted_root: data/raw/food-101
+  image_size: 224
+  train_list: data/raw/food-101/meta/train.txt
+  test_list: data/raw/food-101/meta/test.txt
+  images_root: data/raw/food-101/images
+training:
+  epochs: 15
+  batch_size: 48
+  weight_decay: 0.0001
+  label_smoothing: 0.1
+  early_stopping_patience: 5
+  use_amp: true
+  pin_memory: true
+  persistent_workers: true
+  prefetch_factor: 4
+experiments:
+  resnet_scratch:
+    architecture: resnet18
+    mode: scratch
+    epochs: 50
+    lr: 0.001
+    backbone_lr: 0.001
+  resnet_finetune:
+    architecture: resnet18
+    mode: finetune
+    epochs: 25
+    lr: 0.001
+    backbone_lr: 0.0001
+  densenet_scratch:
+    architecture: densenet121
+    mode: scratch
+    epochs: 30
+    lr: 0.001
+    backbone_lr: 0.001
+  densenet_finetune:
+    architecture: densenet121
+    mode: finetune
+    epochs: 15
+    lr: 0.001
+    backbone_lr: 0.0001
